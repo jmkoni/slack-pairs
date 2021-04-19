@@ -1,5 +1,7 @@
-class CreatePairsJob < ApplicationJob
-  def perform
+class CreatePairsJob
+  include Sidekiq::Worker
+
+  def perform(*args)
     members = Slack::Client.get_channel_users
     pairs = pair_members(members: members)
     start_conversations(pairs: pairs)
