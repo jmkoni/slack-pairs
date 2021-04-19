@@ -1,7 +1,6 @@
-class CreatePairsJob
-  include Sidekiq::Worker
-
-  def perform(*args)
+class CreatePairsJob < ApplicationJob
+  def perform(scheduled_time)
+    Rails.logger.info("Running CreatePairsJob")
     members = Slack::Client.get_channel_users
     pairs = pair_members(members: members)
     start_conversations(pairs: pairs)

@@ -11,7 +11,7 @@ gem "slack-ruby-client"
 gem "bootsnap", ">= 1.4.4", require: false
 
 group :development, :test do
-  gem 'dotenv-rails'
+  gem "dotenv-rails"
   gem "pry"
   gem "standard"
 end
