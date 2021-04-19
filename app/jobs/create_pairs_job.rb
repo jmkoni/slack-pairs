@@ -1,9 +1,12 @@
 class CreatePairsJob < ApplicationJob
   def self.perform
-    Rails.logger.info("Running CreatePairsJob")
-    members = Slack::Client.get_channel_users
-    pairs = pair_members(members: members)
-    start_conversations(pairs: pairs)
+    date = Date.today
+    if date.monday? && date.cweek.odd?
+      Rails.logger.info("Running CreatePairsJob")
+      members = Slack::Client.get_channel_users
+      pairs = pair_members(members: members)
+      start_conversations(pairs: pairs)
+    end
   end
 
   def self.pair_members(members:)
@@ -18,8 +21,8 @@ class CreatePairsJob < ApplicationJob
   end
 
   def self.start_conversations(pairs:)
-    # pairs.each do |pair|
-    Slack::Client.create_conversation(pair: ["U01TN43PUP2"], total_pairs: pairs.count)
-    # end
+    pairs.each do |pair|
+      Slack::Client.create_conversation(pair: pair)
+    end
   end
 end

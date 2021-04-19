@@ -16,7 +16,7 @@ module Slack
       conv = client.conversations_open(users: pair.join(","))
       client.chat_postMessage(
         channel: conv.channel.id,
-        text: "TOTAL PAIRS: #{total_pairs}. You've both been paired up for a coffee chat! Find a time to meet (Calendly is great for this) and have fun!"
+        text: "You've both been paired up for a coffee chat! Find a time to meet (Calendly is great for this) and have fun!"
       )
     end
 
