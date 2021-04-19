@@ -18,7 +18,7 @@ class CreatePairsJob < ApplicationJob
 
   def start_conversations(pairs:)
     # pairs.each do |pair|
-      Slack::Client.create_conversation(pair: ['U01TN43PUP2'])
+    Slack::Client.create_conversation(pair: ["U01TN43PUP2"])
     # end
   end
 end
