@@ -1,3 +1,3 @@
-task :create_pairs => :environment do
+task create_pairs: :environment do
   CreatePairsJob.perform
 end
