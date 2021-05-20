@@ -11,18 +11,12 @@ class CreatePairsJob < ApplicationJob
 
   def self.pair_members(members:)
     pairs = []
-    while members.size > 3
-      temp_pair = members.sample(2)
-      pairs << temp_pair
-      temp_pair.each { |pair| members.delete(pair) }
-    end
-    pairs << members.to_a
-    pairs
+    members.shuffle!
+    pairs << members.shift(4) while members.any?
+    pairs[-2] << pairs.last.pop if pairs.last.length == 1
   end
 
   def self.start_conversations(pairs:)
-    pairs.each do |pair|
-      Slack::Client.create_conversation(pair: pair)
-    end
+    pairs.each { |pair| Slack::Client.create_conversation(pair: pair) }
   end
 end
