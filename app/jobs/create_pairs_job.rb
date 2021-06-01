@@ -1,11 +1,13 @@
 class CreatePairsJob < ApplicationJob
   def self.perform
+    Rails.logger.info("Running CreatePairsJob")
     date = Date.today
     if date.monday? && date.cweek.odd?
-      Rails.logger.info("Running CreatePairsJob")
+      Rails.logger.info("It's a Monday on an odd week! Generating pairs!")
       members = Slack::Client.get_channel_users
       pairs = pair_members(members: members)
       start_conversations(pairs: pairs)
+      Rails.logger.info("Started conversations with #{pairs.count} pairs")
     end
   end
 
