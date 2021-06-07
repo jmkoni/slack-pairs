@@ -1,27 +1,40 @@
 class CreatePairsJob < ApplicationJob
   MIN_GROUP_SIZE = 2
 
-  def self.perform
-    Rails.logger.info("Running CreatePairsJob")
-    date = Date.today
-    if date.monday? && date.cweek.odd?
-      Rails.logger.info("It's a Monday on an odd week! Generating pairs!")
+  class << self
+    def perform
+      Rails.logger.info("Running CreatePairsJob")
+      date = Date.today
+      if date.monday? && date.cweek.odd?
+        Rails.logger.info("It's a Monday on an odd week! Generating pairs!")
+        perform!
+      end
+    end
+
+    def perform!
       members = Slack::Client.get_channel_users
       pairs = pair_members(members: members)
       start_conversations(pairs: pairs)
       Rails.logger.info("Started conversations with #{pairs.count} pairs")
     end
-  end
 
-  def self.pair_members(members:)
-    pairs = []
-    members.shuffle!
-    pairs << members.shift(MIN_GROUP_SIZE) while members.any?
-    pairs[-2] << pairs.last.pop if pairs.last.length == 1
-    pairs
-  end
+    def pair_members(members:)
+      pairs = []
+      members.shuffle!
+      pairs << members.shift(MIN_GROUP_SIZE) while members.any?
+      balance_pairs(pairs)
+    end
 
-  def self.start_conversations(pairs:)
-    pairs.each { |pair| Slack::Client.create_conversation(pair: pair) }
+    def balance_pairs(pairs)
+      if pairs.last.length == 1
+        pairs[-2] << pairs.last.pop
+        pairs.pop
+      end
+      pairs
+    end
+
+    def start_conversations(pairs:)
+      pairs.each { |pair| Slack::Client.create_conversation(pair: pair) }
+    end
   end
 end
