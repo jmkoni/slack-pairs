@@ -1,4 +1,6 @@
 class CreatePairsJob < ApplicationJob
+  MIN_GROUP_SIZE = 2
+
   def self.perform
     Rails.logger.info("Running CreatePairsJob")
     date = Date.today
@@ -14,8 +16,9 @@ class CreatePairsJob < ApplicationJob
   def self.pair_members(members:)
     pairs = []
     members.shuffle!
-    pairs << members.shift(4) while members.any?
+    pairs << members.shift(MIN_GROUP_SIZE) while members.any?
     pairs[-2] << pairs.last.pop if pairs.last.length == 1
+    pairs
   end
 
   def self.start_conversations(pairs:)
