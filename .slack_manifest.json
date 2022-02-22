@@ -1,0 +1,24 @@
+display_information:
+  name: Pairing Bot
+features:
+  bot_user:
+    display_name: Pairing Bot
+    always_online: false
+oauth_config:
+  scopes:
+    bot:
+      - users:read
+      - mpim:write
+      - im:write
+      - chat:write
+      - channels:join
+      - channels:manage
+      - groups:write
+      - groups:read
+      - mpim:read
+      - im:read
+      - channels:read
+settings:
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false
