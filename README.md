@@ -14,7 +14,7 @@ This application uses Ruby 3.0
 5. Set `MIN_GROUP_SIZE` to 2.
 6. Get your secret key base and the oauth token for your newly created slack app. Store those as `SECRET_KEY_BASE` and `SLACK_OAUTH_TOKEN`.
 7. Open up the channel you want to use the app in in your browser and get the channel ID. It should start with a "C". Store this as `PAIR_CHANNEL`.
-8. Update [`SlackMessage`](https://github.com/jmkoni/slack-pairs/blob/main/app/models/slack_message.rb) to use whatever channel name you are adding it to.
+8. Set `PAIR_MESSAGE`to use whatever channel name you are adding it to and whatever message you want. Ex: `You've both been paired up for a coffee chat from #coffee-buddies! Find a time to meet (Calendly is great for this) and have fun!`
 9. Currently, the job will [only run on Mondays on odd weeks](https://github.com/jmkoni/slack-pairs/blob/main/app/jobs/create_pairs_job.rb#L8). Update this if you want to change it.
 10. Deploy app to Heroku (or your hosting service of choice).
 11. If using Heroku, install Heroku Scheduler.
