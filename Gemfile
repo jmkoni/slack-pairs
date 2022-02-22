@@ -5,6 +5,8 @@ ruby "3.0.0"
 
 gem "rails", "~> 6.1.3", ">= 6.1.3.1"
 gem "puma", "~> 5.0"
+gem "sentry-ruby"
+gem "sentry-rails"
 gem "slack-ruby-client"
 gem "bootsnap", ">= 1.4.4", require: false
 
