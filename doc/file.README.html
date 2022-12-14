@@ -60,13 +60,55 @@
       <div id="content"><div id='filecontents'>
 <h1 id="label-slack-pairs">slack-pairs</h1>
 
-<p>This application is intended to be a self-hosted version of Donut.</p>
+<p>This application is intended to be a self-hosted version of Donut, in addition to a bot that helps moderators of slack receive messages from their users. It can handle both groups and pairs.</p>
 
 <h2 id="label-System+Requirements">System Requirements</h2>
 
-<p>This application uses Ruby 3.0</p>
+<p>This application uses <a href="https://www.ruby-lang.org/en/documentation/installation/">Ruby 3.1.3</a>. You’ll need the following</p>
+<ul><li>
+<p><a href="https://rubygems.org/pages/download">RubyGems</a></p>
+</li><li>
+<p>bundler (<code>gem install bundler</code>)</p>
+</li><li>
+<p>required libraries (run <code>bundle install</code> from the application home directory)</p>
+</li></ul>
 
-<h2 id="label-App+Setup+Instructions">App Setup Instructions</h2>
+<h2 id="label-Running-28ish-29+Locally">Running(ish) Locally</h2>
+
+<p>You need four environment variables set:</p>
+<ol><li>
+<p><code>PAIRING CHANNEL</code> (if doing pairs)</p>
+</li><li>
+<p><code>GROUPS_CHANNEL</code> (if doing groups)</p>
+</li><li>
+<p><code>SLACK_OAUTH_TOKEN</code></p>
+</li><li>
+<p><code>SECRET_KEY_BASE</code></p>
+</li></ol>
+
+<p>You get the channel ids from visiting slack in the browser, clicking on the channel, then looking at the URL. The ID starting with C is your channel ID. For the Slack tokens, you will likely need to talk to SRE to get access to the app within Slack. If you have all these set, you can run it locally! However, keep in mind that, if you run the job, it will generate the groups and send out messages. So run with care! To run:</p>
+
+<p><code>rake create_groups</code></p>
+
+<p>If you want to run individual methods, the best bet is to run <code>rails c</code> to open up the console. Then you can run any of the individual methods (at least if they aren’t private). Example:</p>
+
+<pre class="code ruby"><code class="ruby">&gt; rails c
+Loading development environment (Rails 6.1.7)
+3.0.0 :001 &gt; pairs = CreateGroupsJob.balance_pairs([[1,2],[3,4],[5]])
+ =&gt; [[1, 2], [3, 4, 5]]
+</code></pre>
+
+<p>Note: You can do an example like this without setting the environment variables.</p>
+
+<h2 id="label-Running+tests">Running tests</h2>
+
+<p><code>bundle exec rspec</code> That’s it!</p>
+
+<h2 id="label-Running+the+linter">Running the linter</h2>
+
+<p><code>bundle exec standardrb --fix</code></p>
+
+<h2 id="label-Deploying+to+Slack">Deploying to Slack</h2>
 <ol><li>
 <p>Follow instructions and <a href="https://api.slack.com/authentication/basics">create a new slack app</a></p>
 </li><li>
@@ -74,28 +116,37 @@
 </li><li>
 <p>Create a new app in Heroku or your hosting service of choice. Go to wherever you can add environment variables.</p>
 </li><li>
-<p>Set <code>MIN_GROUP_SIZE</code> to 2.</p>
-</li><li>
 <p>Get your secret key base and the oauth token for your newly created slack app. Store those as <code>SECRET_KEY_BASE</code> and <code>SLACK_OAUTH_TOKEN</code>.</p>
 </li><li>
-<p>Open up the channel you want to use the app in in your browser and get the channel ID. It should start with a “C”. Store this as <code>PAIR_CHANNEL</code>.</p>
+<p>Open up the channel you want to use the app in in your browser and get the channel ID. It should start with a “C”. Store this as <code>PAIRING_CHANNEL</code>.</p>
 </li><li>
-<p>Set <code>PAIR_MESSAGE</code>to use whatever channel name you are adding it to and whatever message you want. Ex: <code>You&#39;ve both been paired up for a coffee chat from #coffee-buddies! Find a time to meet (Calendly is great for this) and have fun!</code></p>
+<p>Open up the channel you want to use the app in in your browser and get the channel ID. It should start with a “C”. Store this as <code>GROUPS_CHANNEL</code>.</p>
+</li><li>
+<p>Set environment variables in Github within your repo: Settings &gt; Secrets &gt; Actions &gt; New Repository Secret</p>
 </li><li>
 <p>Currently, the job will <a href="https://github.com/jmkoni/slack-pairs/blob/main/app/jobs/create_pairs_job.rb#L8">only run on Mondays on odd weeks</a>. Update this if you want to change it.</p>
+</li></ol>
+
+<p>If you are using the modbot portion:</p>
+<ol><li>
+<p>Add <code>MOD_CHANNEL</code> to Heroku environment variables. Get the channel by going to slack in your browser, opening up the mod channel, and getting the channel id.</p>
 </li><li>
 <p>Deploy app to Heroku (or your hosting service of choice).</p>
 </li><li>
-<p>If using Heroku, install Heroku Scheduler.</p>
+<p>Go to your app in Slack (where you added the bot tokens), go to slash commands and create a new one. Command should be:</p>
 </li><li>
-<p>Schedule <code>rake create_pairs</code> to run every day at a time of your choice. If you have a hosting service that will allow you to run cron jobs, you can remove the code mentioned above that checks that day and week and just use cron format. If using Heroku, just run daily and it will quit if it’s not the right day 🙂</p>
+<p>Command: <code>/mods</code></p>
 </li><li>
-<p>PROFIT!</p>
+<p>Request URL: <code>https://your-app.herokuapp.com/mod</code></p>
+</li><li>
+<p>Short Description: <code>Notifies the mods channel</code></p>
+</li><li>
+<p>Usage Hint: '&lt;message to mods&gt;"</p>
 </li></ol>
 </div></div>
 
       <div id="footer">
-  Generated on Wed Dec 14 10:23:16 2022 by
+  Generated on Wed Dec 14 13:11:42 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.3).
 </div>

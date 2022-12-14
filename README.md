@@ -5,6 +5,7 @@ This application is intended to be a self-hosted version of Donut, in addition t
 ## System Requirements
 
 This application uses [Ruby 3.1.3](https://www.ruby-lang.org/en/documentation/installation/). You'll need the following
+
 - [RubyGems](https://rubygems.org/pages/download)
 - bundler (`gem install bundler`)
 - required libraries (run `bundle install` from the application home directory)
@@ -12,6 +13,7 @@ This application uses [Ruby 3.1.3](https://www.ruby-lang.org/en/documentation/in
 ## Running(ish) Locally
 
 You need four environment variables set:
+
 1. `PAIRING CHANNEL` (if doing pairs)
 2. `GROUPS_CHANNEL` (if doing groups)
 3. `SLACK_OAUTH_TOKEN`
@@ -52,14 +54,13 @@ That's it!
 9. Currently, the job will [only run on Mondays on odd weeks](https://github.com/jmkoni/slack-pairs/blob/main/app/jobs/create_pairs_job.rb#L8). Update this if you want to change it.
 
 If you are using the modbot portion:
+
 1. Add `MOD_CHANNEL` to Heroku environment variables. Get the channel by going to slack in your browser, opening up the mod channel, and getting the channel id.
 2. Deploy app to Heroku (or your hosting service of choice).
 3. Go to your app in Slack (where you added the bot tokens), go to slash commands and create a new one. Command should be:
 
-``` text
-Command: /mods
-Request URL: https://your-app.herokuapp.com/mod
-Short Description: Notifies the mods channel
-Usage Hint: <message to mods>
-```
+- Command: `/mods`
+- Request URL: `https://your-app.herokuapp.com/mod`
+- Short Description: `Notifies the mods channel`
+- Usage Hint: `<message to mods>``
 
