@@ -1,3 +1,4 @@
-task create_pairs: :environment do
-  CreatePairsJob.perform
+# Runs create groups job
+task create_groups: :environment do
+  CreateGroupsJob.perform
 end
