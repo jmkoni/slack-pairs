@@ -62,5 +62,5 @@ If you are using the modbot portion:
 - Command: `/mods`
 - Request URL: `https://your-app.herokuapp.com/mod`
 - Short Description: `Notifies the mods channel`
-- Usage Hint: `<message to mods>``
+- Usage Hint: `<message to mods>`
 
