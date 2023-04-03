@@ -3,6 +3,28 @@ module Slack
   class Client
     attr_reader :client
 
+    def self.add_user_to_channel(user_id:, channel_id:, channel_name:)
+      channel_name = channel_name.downcase.sub("-", "_").to_sym
+      if channel_name == :help
+        client.chat_postEphemeral(
+          channel: channel_id,
+          user: user_id,
+          blocks: SlackMessage.help_message
+        )
+      elsif SlackMessage.CHANNELS.includes? channel_name
+        client.conversations_invite(
+          channel: SlackMessage.CHANNELS[channel_name][:channel_id],
+          users: user_id
+        )
+      else
+        client.chat_postEphemeral(
+          channel: channel_id,
+          user: user_id,
+          text: "I could not find that channel. Please check the name against \"help\"."
+        )
+      end
+    end
+
     # Gets users from a given channel
     #
     # @param channel_id [String] ID of the channel, ex: "C182938", found by looking at the URL when viewing a channel through a browser
