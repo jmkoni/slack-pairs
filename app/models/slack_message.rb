@@ -17,14 +17,24 @@ module SlackMessage
   }
 
   def help_message
-    channel_descriptions = CHANNELS.keys.map { |channel| "#{channel}: #{CHANNELS[channel][:description]}\s\s" }.join
     [
       {
         type: "section",
         block_id: "help_message",
         text: {
           type: "mrkdwn",
-          text: channel_descriptions
+          text: "*bipoc:* #{CHANNELS[:bipoc][:description]}
+*cheersqueers:* #{CHANNELS[:cheersqueers][:description]}
+*latinidad:* #{CHANNELS[:latinidad][:description]}
+*aapi:* #{CHANNELS[:aapi][:description]}
+*south_asian:* #{CHANNELS[:south_asian][:description]}
+*wakanda:* #{CHANNELS[:wakanda][:description]}
+*accountabilibuddies:* #{CHANNELS[:accountabilibuddies][:description]}
+*dungeons_and_dragons:* #{CHANNELS[:dungeons_and_dragons][:description]}
+*bipolar_bpd_support:* #{CHANNELS[:bipolar_bpd_support][:description]}
+*nonmonogamy:* #{CHANNELS[:nonmonogamy][:description]}
+*plus_size_party:* #{CHANNELS[:plus_size_party][:description]}
+"
         }
       }
     ]
