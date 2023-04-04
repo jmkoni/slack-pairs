@@ -85,7 +85,7 @@ If it looks like a bug, please copy and send this message to Jennifer Konikowski
           blocks: SlackMessage.mod_message(user_id: user_id, channel_id: channel_id, text: text)
         )
       rescue => e
-        client.chat_postEmphemeral(
+        client.chat_postEphemeral(
           channel: channel_id,
           user: user_id,
           text: "There was an error! Please copy and send this message to Jennifer Konikowski:
