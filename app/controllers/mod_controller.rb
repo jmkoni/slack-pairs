@@ -10,6 +10,7 @@ class ModController < ApplicationController
     Slack::Client.send_mod_message(
       user_id: params[:user_id],
       channel_id: params[:channel_id],
+      channel_name: params[:channel_name],
       text: params[:text]
     )
 
