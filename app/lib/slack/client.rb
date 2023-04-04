@@ -9,14 +9,16 @@ module Slack
     # @param user_id [String] slack user id of user who sent the message
     # @param channel_id [String] ID of the channel, ex: "C182938", found by looking at the URL when viewing a channel through a browser
     # @param client [Slack::Web::Client] the slack web client, defaults to nil
-    def self.add_user_to_channel(user_id:, channel_id:, channel_name:, client: nil)
+    def self.add_user_to_channel(user_id:, channel_id:, current_channel_name:, channel_name:, client: nil)
       client ||= default_client # if nil, set = to default
       channel_name = channel_name.downcase.sub("-", "_").to_sym
       begin
         if channel_name == :help
-          client.chat_postEphemeral(
-            channel: channel_id,
-            user: user_id,
+          post_ephemeral(
+            channel_id: channel_id,
+            user_id: user_id,
+            channel_name: current_channel_name,
+            client: client,
             blocks: SlackMessage.help_message
           )
         elsif SlackMessage::CHANNELS.include? channel_name
@@ -25,21 +27,46 @@ module Slack
             users: user_id
           )
         else
-          client.chat_postEphemeral(
-            channel: channel_id,
-            user: user_id,
-            text: "I could not find that channel. Please check the name against \"help\"."
+          post_ephemeral(
+            channel_id: channel_id,
+            user_id: user_id,
+            channel_name: current_channel_name,
+            client: client,
+            message: "I could not find that channel. Please check the name against \"help\"."
           )
         end
+      rescue Slack::Web::Api::Errors::ChannelNotFound
       rescue => e
-        client.chat_postEphemeral(
-          channel: channel_id,
-          user: user_id,
-          text: "There was an error! Please check #{channel_name} against list in help.
+        post_ephemeral(
+          channel_id: channel_id,
+          user_id: user_id,
+          channel_name: current_channel_name,
+          client: client,
+          message: "There was an error! Please check #{channel_name} against list in help.
 If it looks like a bug, please copy and send this message to Jennifer Konikowski:
 #{e.message}"
         )
         raise
+      end
+    end
+
+    def self.post_ephemeral(channel_id:, user_id:, channel_name:, client:, message: nil, blocks: nil)
+      if channel_name == "directmessage"
+        create_conversation(group: [user_id], text: message, type: :dm) if message
+        create_conversation(group: [user_id], message: blocks, type: :dm) if blocks
+      elsif message
+        client.chat_postEphemeral(
+          channel: channel_id,
+          user: user_id,
+          text: message
+        )
+      else
+        client.chat_postEphemeral(
+          channel: channel_id,
+          user: user_id,
+          blocks: blocks
+        )
+
       end
     end
 
@@ -62,14 +89,21 @@ If it looks like a bug, please copy and send this message to Jennifer Konikowski
     # @param group [Array of Strings] array of group users, ex: ["U1234", "U2345", "U3456"]
     # @param type [Symbol] type of conversation, currently handles :pairing and :groups
     # @param message [JSON] can be passed in, must follow the Slack Block Kit format, defaults to nil
-    def self.create_conversation(group:, type:, message: nil)
-      message = generate_message(group: group, type: type, message: message)
+    def self.create_conversation(group:, type:, text: nil, message: nil)
       client ||= default_client
       conv = client.conversations_open(users: group.join(","))
-      client.chat_postMessage(
-        channel: conv.channel.id,
-        blocks: message
-      )
+      if text
+        client.chat_postMessage(
+          channel: conv.channel.id,
+          text: text
+        )
+      else
+        message = generate_message(group: group, type: type, message: message)
+        client.chat_postMessage(
+          channel: conv.channel.id,
+          blocks: message
+        )
+      end
     end
 
     # Given a user id, channel, and message text, it posts a message to the mod channel.
