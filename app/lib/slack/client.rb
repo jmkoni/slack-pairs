@@ -12,23 +12,34 @@ module Slack
     def self.add_user_to_channel(user_id:, channel_id:, channel_name:, client: nil)
       client ||= default_client # if nil, set = to default
       channel_name = channel_name.downcase.sub("-", "_").to_sym
-      if channel_name == :help
-        client.chat_postEphemeral(
+      begin
+        if channel_name == :help
+          client.chat_postEphemeral(
+            channel: channel_id,
+            user: user_id,
+            blocks: SlackMessage.help_message
+          )
+        elsif SlackMessage::CHANNELS.include? channel_name
+          client.conversations_invite(
+            channel: SlackMessage::CHANNELS[channel_name][:channel_id],
+            users: user_id
+          )
+        else
+          client.chat_postEphemeral(
+            channel: channel_id,
+            user: user_id,
+            text: "I could not find that channel. Please check the name against \"help\"."
+          )
+        end
+      rescue => e
+        client.chat_postEmphemeral(
           channel: channel_id,
           user: user_id,
-          blocks: SlackMessage.help_message
+          text: "There was an error! Please check #{channel_name} against list in help.
+If it looks like a bug, please copy and send this message to Jennifer Konikowski:
+#{e.message}"
         )
-      elsif SlackMessage::CHANNELS.include? channel_name
-        client.conversations_invite(
-          channel: SlackMessage::CHANNELS[channel_name][:channel_id],
-          users: user_id
-        )
-      else
-        client.chat_postEphemeral(
-          channel: channel_id,
-          user: user_id,
-          text: "I could not find that channel. Please check the name against \"help\"."
-        )
+        raise
       end
     end
 
@@ -68,10 +79,20 @@ module Slack
     # @param text [String] message text from user to mods
     def self.send_mod_message(user_id:, channel_id:, text:)
       client ||= default_client
-      client.chat_postMessage(
-        channel: ENV["MOD_CHANNEL"],
-        blocks: SlackMessage.mod_message(user_id: user_id, channel_id: channel_id, text: text)
-      )
+      begin
+        client.chat_postMessage(
+          channel: ENV["MOD_CHANNEL"],
+          blocks: SlackMessage.mod_message(user_id: user_id, channel_id: channel_id, text: text)
+        )
+      rescue => e
+        client.chat_postEmphemeral(
+          channel: channel_id,
+          user: user_id,
+          text: "There was an error! Please copy and send this message to Jennifer Konikowski:
+#{e.message}"
+        )
+        raise
+      end
     end
 
     private_class_method

@@ -2,6 +2,7 @@
 module SlackMessage
   module_function
 
+  # constant for channel ids and descriptions for identity channels
   CHANNELS = {
     bipoc: {channel_id: "C01SYB3QMNW", description: "for anyone who identifies as BIPOC"},
     cheersqueers: {channel_id: "C01T4KG9UUU", description: "LGBTQA+"},
@@ -13,9 +14,12 @@ module SlackMessage
     wakanda: {channel_id: "C01SYCRDFCJ", description: "for Black APers"},
     bipolar_bpd_support: {channel_id: "C04RFB6NCG5", description: "safe space for talking about the highs and lows of mood management"},
     nonmonogamy: {channel_id: "", description: "safe space for discussing the ins and outs of nonmonogamy"},
-    plus_size_party: {channel_id: "", description: "for plus-size APers"}
+    plus_size_party: {channel_id: "C01U01RDN06", description: "for plus-size APers"}
   }
 
+  # Generates help message for identity channels
+  #
+  # @return [JSON] message content fitting Slack's block kit requirements
   def help_message
     [
       {
