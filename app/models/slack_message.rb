@@ -13,7 +13,7 @@ module SlackMessage
     dungeons_and_dragons: {channel_id: "C0257UWRF8A", description: "if you want to play D&D"},
     wakanda: {channel_id: "C01SYCRDFCJ", description: "for Black APers"},
     bipolar_bpd_support: {channel_id: "C04RFB6NCG5", description: "safe space for talking about the highs and lows of mood management"},
-    nonmonogamy: {channel_id: "", description: "safe space for discussing the ins and outs of nonmonogamy"},
+    nonmonogamy: {channel_id: "C03DRR18DEU", description: "safe space for discussing the ins and outs of nonmonogamy"},
     plus_size_party: {channel_id: "C01U01RDN06", description: "for plus-size APers"}
   }
 
