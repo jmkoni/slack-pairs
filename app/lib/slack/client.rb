@@ -67,8 +67,8 @@ If it looks like a bug, please copy and send this message to Jennifer Konikowski
 
     def self.post_ephemeral(channel_id:, user_id:, channel_name:, client:, message: nil, blocks: nil)
       if channel_name == "directmessage"
-        create_conversation(group: [user_id], text: message, type: :dm) if message
-        create_conversation(group: [user_id], message: blocks, type: :dm) if blocks
+        create_conversation(group: [user_id], text: message, type: :dm, client: client) if message
+        create_conversation(group: [user_id], message: blocks, type: :dm, client: client) if blocks
       elsif message
         client.chat_postEphemeral(
           channel: channel_id,
@@ -103,7 +103,7 @@ If it looks like a bug, please copy and send this message to Jennifer Konikowski
     # @param group [Array of Strings] array of group users, ex: ["U1234", "U2345", "U3456"]
     # @param type [Symbol] type of conversation, currently handles :pairing and :groups
     # @param message [JSON] can be passed in, must follow the Slack Block Kit format, defaults to nil
-    def self.create_conversation(group:, type:, text: nil, message: nil)
+    def self.create_conversation(group:, type:, text: nil, message: nil, client: nil)
       client ||= default_client
       conv = client.conversations_open(users: group.join(","))
       if text
@@ -126,7 +126,7 @@ If it looks like a bug, please copy and send this message to Jennifer Konikowski
     # @param channel_id [String] slack channel id where the user initially typed /mods
     # @param channel_name [String] slack channel name where user initially reached out to /mods
     # @param text [String] message text from user to mods
-    def self.send_mod_message(user_id:, channel_id:, channel_name:, text:)
+    def self.send_mod_message(user_id:, channel_id:, channel_name:, text:, client: nil)
       client ||= default_client
       begin
         client.chat_postMessage(
@@ -142,7 +142,7 @@ If it looks like a bug, please copy and send this message to Jennifer Konikowski
         client.chat_postEphemeral(
           channel: channel_id,
           user: user_id,
-          text: "There was an error! Please copy and send this message to Jennifer Konikowski:
+          text: "There was an error! Please copy and send this message to Jennifer:
 #{e.message}"
         )
         raise
@@ -162,7 +162,7 @@ If it looks like a bug, please copy and send this message to Jennifer Konikowski
       when :pairing
         SlackMessage.pair_message(pair: group)
       when :groups
-        SlackMessage.groups_message(group: group)
+        SlackMessage.group_message(group: group)
       else
         message
       end
