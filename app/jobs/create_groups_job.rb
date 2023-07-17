@@ -8,12 +8,12 @@ class CreateGroupsJob < ApplicationJob
     def perform
       Rails.logger.info("Running CreateGroupsJob")
       date = Date.today
-      if date.monday?
-        if date.mday <= 7 && ENV["PAIRING_CHANNEL"]
+      if date.monday? && date.mday <= 7
+        if ENV["PAIRING_CHANNEL"].present?
           Rails.logger.info("It's the first Monday of the month! Generating pairs!")
           create_pairs
         end
-        if date.cweek.even? && ENV["GROUPS_CHANNEL"]
+        if ENV["GROUPS_CHANNEL"].present?
           Rails.logger.info("It's a Monday on the right week! Generating groups!")
           create_groups
         end
