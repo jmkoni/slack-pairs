@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2023-07-17T10:02:04-04:00">2023-07-17T10:02:04-04:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2023-07-17T10:16:28-04:00">2023-07-17T10:16:28-04:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -30,7 +30,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.9
+         1.88
        </span>
     </span> hits/line
     )
@@ -121,7 +121,7 @@
             <td class="cell--number">46</td>
             <td class="cell--number">46</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">2.17</td>
+            <td class="cell--number">2.13</td>
             
           </tr>
         
@@ -500,7 +500,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         2.15
+         2.11
        </span>
     </span> hits/line
     )
@@ -558,7 +558,7 @@
             <td class="cell--number">46</td>
             <td class="cell--number">46</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">2.17</td>
+            <td class="cell--number">2.13</td>
             
           </tr>
         
@@ -1640,18 +1640,18 @@
 
             
 
-            <code class="ruby">      if date.monday?</code>
+            <code class="ruby">      if date.monday? &amp;&amp; date.mday &lt;= 7</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="3" data-linenumber="12">
-            <span class="hits">3</span>
+          <li class="covered" data-hits="2" data-linenumber="12">
+            <span class="hits">2</span>
             
 
             
 
-            <code class="ruby">        if date.mday &lt;= 7 &amp;&amp; ENV[&quot;PAIRING_CHANNEL&quot;]</code>
+            <code class="ruby">        if ENV[&quot;PAIRING_CHANNEL&quot;].present?</code>
           </li>
         </div>
       
@@ -1689,13 +1689,13 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="3" data-linenumber="16">
-            <span class="hits">3</span>
+          <li class="covered" data-hits="2" data-linenumber="16">
+            <span class="hits">2</span>
             
 
             
 
-            <code class="ruby">        if date.cweek.even? &amp;&amp; ENV[&quot;GROUPS_CHANNEL&quot;]</code>
+            <code class="ruby">        if ENV[&quot;GROUPS_CHANNEL&quot;].present?</code>
           </li>
         </div>
       
