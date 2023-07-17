@@ -6,7 +6,7 @@ This application is intended to be a self-hosted version of Donut, in addition t
 
 **NOTE: if you want to use a version manager, please skip to the next section. Using a version manager is highly recommended.**
 
-This application uses [Ruby 3.1.3](https://www.ruby-lang.org/en/documentation/installation/). You'll need the following
+This application uses [Ruby 3.2.2](https://www.ruby-lang.org/en/documentation/installation/). You'll need the following
 - [RubyGems](https://rubygems.org/pages/download) (installed with rvm)
 - bundler (`gem install bundler`)
 - required libraries (run `bundle install` from the application home directory)
@@ -15,7 +15,7 @@ This application uses [Ruby 3.1.3](https://www.ruby-lang.org/en/documentation/in
 
 You can use either [rbenv](https://github.com/rbenv/rbenv) or [rvm](https://rvm.io). Further instructions assume use of rvm.
 1. Install rvm.
-2. `rvm install ruby-3.1.3`
+2. `rvm install ruby-3.2.2`
 3. `cd` into `slack-pairing` directory
 4. This should create a `slack-pairs` gemset (a self-contained set of installed gems to avoid conflicts).
 5. `gem install bundler`
