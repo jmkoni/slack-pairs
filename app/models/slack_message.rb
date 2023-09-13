@@ -14,7 +14,8 @@ module SlackMessage
     wakanda: {channel_id: "C01SYCRDFCJ", description: "for Black APers"},
     bipolar_bpd_support: {channel_id: "C04RFB6NCG5", description: "safe space for talking about the highs and lows of mood management"},
     nonmonogamy: {channel_id: "C03DRR18DEU", description: "safe space for discussing the ins and outs of nonmonogamy"},
-    plus_size_party: {channel_id: "C01U01RDN06", description: "for plus-size APers"}
+    plus_size_party: {channel_id: "C01U01RDN06", description: "for plus-size APers"},
+    submissions_september: {channel_id: "C05RZM5C8UE", description: "for submissions September accountability group"}
   }
 
   # Generates help message for identity channels
@@ -38,6 +39,7 @@ module SlackMessage
 *bipolar_bpd_support:* #{CHANNELS[:bipolar_bpd_support][:description]}
 *nonmonogamy:* #{CHANNELS[:nonmonogamy][:description]}
 *plus_size_party:* #{CHANNELS[:plus_size_party][:description]}
+*submissions_september:* #{CHANNELS[:submissions_september][:description]}
 "
         }
       }
