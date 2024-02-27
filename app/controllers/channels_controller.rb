@@ -1,6 +1,5 @@
 # Accepts webhooks from slack so users can add themselves to private channels
 class ChannelsController < ApplicationController
-  skip_before_action :verify_authenticity_token
   before_action :verify_webhook_signature, only: :create
 
   # Takes in params from webhook and adds user to channel
@@ -22,6 +21,6 @@ class ChannelsController < ApplicationController
   # @return [Status Code] 403 if not verified
   def verify_webhook_signature
     slack_request = ::Slack::Events::Request.new(request)
-    return head :forbidden unless slack_request.verify!
+    head :forbidden unless slack_request.verify!
   end
 end
