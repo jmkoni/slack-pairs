@@ -49,7 +49,7 @@ module Slack
             user_id: user_id,
             channel_name: current_channel_name,
             client: client,
-            message: "Slack seems to think you are already in that channel! Please check your existing channel list for #{channel_name}."
+            message: "Slack seems to think you are already in that channel! Please check your existing channel list for ##{channel_name}."
           )
       rescue => e
         post_ephemeral(
@@ -81,7 +81,6 @@ If it looks like a bug, please copy and send this message to Jennifer Konikowski
           user: user_id,
           blocks: blocks
         )
-
       end
     end
 
