@@ -1,9 +1,9 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.0.0"
+ruby "3.1.3"
 
-gem "rails", "~> 6.1.3", ">= 6.1.3.1"
+gem "rails", "~> 7.0", ">= 7.0.4"
 gem "puma", "~> 5.0"
 gem "sentry-ruby"
 gem "sentry-rails"
@@ -19,6 +19,7 @@ end
 group :development do
   gem "rack-mini-profiler", "~> 2.0"
   gem "listen", "~> 3.3"
+  gem "yard"
 end
 
 group :test do
