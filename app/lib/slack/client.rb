@@ -76,13 +76,19 @@ If it looks like a bug, please copy and send this message to Jennifer Konikowski
     #
     # @param user_id [String] slack user id of user who sent the message
     # @param channel_id [String] slack channel id where the user initially typed /mods
+    # @param channel_name [String] slack channel name where user initially reached out to /mods
     # @param text [String] message text from user to mods
-    def self.send_mod_message(user_id:, channel_id:, text:)
+    def self.send_mod_message(user_id:, channel_id:, channel_name:, text:)
       client ||= default_client
       begin
         client.chat_postMessage(
           channel: ENV["MOD_CHANNEL"],
-          blocks: SlackMessage.mod_message(user_id: user_id, channel_id: channel_id, text: text)
+          blocks: SlackMessage.mod_message(
+            user_id: user_id,
+            channel_id: channel_id,
+            channel_name: channel_name,
+            text: text
+          )
         )
       rescue => e
         client.chat_postEphemeral(

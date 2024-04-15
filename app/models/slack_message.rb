@@ -84,9 +84,10 @@ module SlackMessage
   #
   # @param user_id [String] slack user id of user sending message to mods
   # @param channel_id [String] slack channel id user is sending message from
+  # @param channel_name [String] slack channel name where user initially reached out to /mods
   # @param text [String] text of message
   # @return [JSON] message content fitting Slack's block kit requirements
-  def mod_message(user_id:, channel_id:, text:)
+  def mod_message(user_id:, channel_id:, channel_name:, text:)
     [
       {
         type: "section",
@@ -94,7 +95,7 @@ module SlackMessage
         text: {
           type: "mrkdwn",
           text: "Message from <@#{user_id}>
-in <##{channel_id}>:
+in <##{channel_id}> (#{channel_name}):
 #{text}"
         }
       }
