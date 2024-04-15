@@ -1,4 +1,6 @@
 class CreatePairsJob < ApplicationJob
+  MIN_GROUP_SIZE = 2
+
   class << self
     def perform
       Rails.logger.info("Running CreatePairsJob")
@@ -21,7 +23,7 @@ class CreatePairsJob < ApplicationJob
     def pair_members(members:)
       pairs = []
       members.shuffle!
-      pairs << members.shift(ENV["MIN_GROUP_SIZE"].to_i) while members.any?
+      pairs << members.shift(MIN_GROUP_SIZE) while members.any?
       balance_pairs(pairs)
     end
 
