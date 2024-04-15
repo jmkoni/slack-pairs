@@ -36,21 +36,21 @@ module Slack
           )
         end
       rescue Slack::Web::Api::Errors::ChannelNotFound
-          post_ephemeral(
-            channel_id: channel_id,
-            user_id: user_id,
-            channel_name: current_channel_name,
-            client: client,
-            message: "I could not find that channel. Please check the name against \"help\" or contact Jennifer with channel name: #{channel_name}."
-          )
+        post_ephemeral(
+          channel_id: channel_id,
+          user_id: user_id,
+          channel_name: current_channel_name,
+          client: client,
+          message: "I could not find that channel. Please check the name against \"help\" or contact Jennifer with channel name: #{channel_name}."
+        )
       rescue Slack::Web::Api::Errors::AlreadyInChannel
-          post_ephemeral(
-            channel_id: channel_id,
-            user_id: user_id,
-            channel_name: current_channel_name,
-            client: client,
-            message: "Slack seems to think you are already in that channel! Please check your existing channel list for #{channel_name}."
-          )
+        post_ephemeral(
+          channel_id: channel_id,
+          user_id: user_id,
+          channel_name: current_channel_name,
+          client: client,
+          message: "Slack seems to think you are already in that channel! Please check your existing channel list for ##{channel_name}."
+        )
       rescue => e
         post_ephemeral(
           channel_id: channel_id,
@@ -81,7 +81,6 @@ If it looks like a bug, please copy and send this message to Jennifer Konikowski
           user: user_id,
           blocks: blocks
         )
-
       end
     end
 
