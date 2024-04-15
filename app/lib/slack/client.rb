@@ -18,9 +18,9 @@ module Slack
           user: user_id,
           blocks: SlackMessage.help_message
         )
-      elsif SlackMessage.CHANNELS.includes? channel_name
+      elsif SlackMessage::CHANNELS.include? channel_name
         client.conversations_invite(
-          channel: SlackMessage.CHANNELS[channel_name][:channel_id],
+          channel: SlackMessage::CHANNELS[channel_name][:channel_id],
           users: user_id
         )
       else
