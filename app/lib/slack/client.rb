@@ -32,7 +32,7 @@ module Slack
           )
         end
       rescue => e
-        client.chat_postEmphemeral(
+        client.chat_postEphemeral(
           channel: channel_id,
           user: user_id,
           text: "There was an error! Please check #{channel_name} against list in help.
