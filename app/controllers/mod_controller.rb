@@ -22,6 +22,6 @@ class ModController < ApplicationController
   # @return [Status Code] 403 if not verified
   def verify_webhook_signature
     slack_request = ::Slack::Events::Request.new(request)
-    return head :forbidden unless slack_request.verify!
+    head :forbidden unless slack_request.verify!
   end
 end
