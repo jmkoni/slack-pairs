@@ -20,6 +20,14 @@ module Slack
       )
     end
 
+    def self.send_mod_message(user_id:, channel_id:, text:)
+      client ||= default_client
+      client.chat_postMessage(
+        channel: ENV["MOD_CHANNEL"],
+        blocks: SlackMessage.mod_message(user_id: user_id, channel_id: channel_id, text: text)
+      )
+    end
+
     private_class_method
 
     def self.default_client
