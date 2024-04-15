@@ -46,12 +46,12 @@ That's it!
 
 1. Follow instructions and [create a new slack app](https://api.slack.com/authentication/basics)
 2. Add the following Bot Token scopes to your slack app: `users:read`, `mpim:write`, `im:write`, `chat:write`, `channels:join`, `channels:manage`, `groups:write`, `groups:read`, `mpim:read`, `im:read`, and `channels:read`. *OR* copy `.slack_manifest.yml`, update the app name, and save an hour of your time.
-4. Create a new app in Heroku or your hosting service of choice. Go to wherever you can add environment variables.
+4. Create a new app in Heroku or your hosting service of choice. If you are not using `modbot`, you don't have to deploy! The jobs will run via GitHub Actions. Go to wherever you can add environment variables.
 5. Get your secret key base and the oauth token for your newly created slack app. Store those as `SECRET_KEY_BASE` and `SLACK_OAUTH_TOKEN`.
 6. Open up the channel you want to use the app in in your browser and get the channel ID. It should start with a "C". Store this as `PAIRING_CHANNEL`.
 7. Open up the channel you want to use the app in in your browser and get the channel ID. It should start with a "C". Store this as `GROUPS_CHANNEL`.
 8. Set environment variables in Github within your repo: Settings > Secrets > Actions > New Repository Secret
-9. Currently, the job will [only run on Mondays on odd weeks](https://github.com/jmkoni/slack-pairs/blob/main/app/jobs/create_pairs_job.rb#L8). Update this if you want to change it.
+9. Currently, the job will [only run on the first Monday of the month](https://github.com/jmkoni/slack-pairs/blob/main/.github/workflows/create_groups.yml#L12). Update this if you want to change it.
 
 If you are using the modbot portion:
 

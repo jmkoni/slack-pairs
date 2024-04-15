@@ -2,6 +2,34 @@
 module SlackMessage
   module_function
 
+  CHANNELS = {
+    bipoc: {channel_id: "C01SYB3QMNW", description: "for anyone who identifies as BIPOC"},
+    cheersqueers: {channel_id: "C01T4KG9UUU", description: "LGBTQA+"},
+    latinidad: {channel_id: "C01SJ0F510F", description: "for Latinx APers"},
+    aapi: {channel_id: "C01TNFWDA9W", description: "for Asian and Pacific Islander APers"},
+    south_asian: {channel_id: "C01SXKU357Y", description: "for South Asian APers"},
+    accountabilibuddies: {channel_id: "C021TR2N5FZ", description: "for fitness/weight loss accountability"},
+    dungeons_and_dragons: {channel_id: "C0257UWRF8A", description: "if you want to play D&D"},
+    wakanda: {channel_id: "C01SYCRDFCJ", description: "for Black APers"},
+    bipolar_bpd_support: {channel_id: "C04RFB6NCG5", description: "safe space for talking about the highs and lows of mood management"},
+    nonmonogamy: {channel_id: "", description: "safe space for discussing the ins and outs of nonmonogamy"},
+    plus_size_party: {channel_id: "", description: "for plus-size APers"}
+  }
+
+  def help_message
+    channel_descriptions = CHANNELS.keys.map { |channel| "#{channel}: #{CHANNELS[channel][:description]}\s\s" }.join
+    [
+      {
+        type: "section",
+        block_id: "help_message",
+        text: {
+          type: "mrkdwn",
+          text: channel_descriptions
+        }
+      }
+    ]
+  end
+
   # Generates the pair message for a pair of users
   #
   # @param pair [Array of Arrays of Strings] pairs of users, ex: [["U1234", "U2345"], ["U3456", "U4567"]]
