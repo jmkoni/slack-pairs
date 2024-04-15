@@ -10,7 +10,8 @@ class ChannelsController < ApplicationController
     Slack::Client.add_user_to_channel(
       user_id: params[:user_id],
       channel_id: params[:channel_id],
-      channel_name: params[:text]
+      channel_name: params[:text],
+      current_channel_name: params[:channel_name]
     )
 
     head :accepted
