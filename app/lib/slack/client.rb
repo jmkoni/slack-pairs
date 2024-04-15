@@ -3,7 +3,14 @@ module Slack
   class Client
     attr_reader :client
 
-    def self.add_user_to_channel(user_id:, channel_id:, channel_name:)
+    # Gives user ability to add themselves to a private channel
+    #
+    # @param channel_name [String] text name of channel (ex: "_general")
+    # @param user_id [String] slack user id of user who sent the message
+    # @param channel_id [String] ID of the channel, ex: "C182938", found by looking at the URL when viewing a channel through a browser
+    # @param client [Slack::Web::Client] the slack web client, defaults to nil
+    def self.add_user_to_channel(user_id:, channel_id:, channel_name:, client: nil)
+      client ||= default_client # if nil, set = to default
       channel_name = channel_name.downcase.sub("-", "_").to_sym
       if channel_name == :help
         client.chat_postEphemeral(
