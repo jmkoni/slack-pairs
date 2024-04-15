@@ -2,7 +2,7 @@ module SlackMessage
   module_function
 
   def pair_message(pair:)
-    pair_usernames = pair.map{ |user| "<@#{user}>" }.to_sentence
+    pair_usernames = pair.map { |user| "<@#{user}>" }.to_sentence
     [
       {
         type: "section",

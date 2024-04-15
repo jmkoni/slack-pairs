@@ -20,7 +20,7 @@ module Slack
       )
     end
 
-    private
+    private_class_method
 
     def self.default_client
       ::Slack::Web::Client.new(token: ENV["SLACK_OAUTH_TOKEN"])
