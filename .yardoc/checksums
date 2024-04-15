@@ -1,6 +1,6 @@
 app/lib/slack/client.rb c94b844c88dcd92cdb4a5e2fa9eb661357a5df17
 app/jobs/application_job.rb 2d7aea448b6f7b6a9c182cd5369df41b5f338a7c
-app/models/slack_message.rb 1762b6f18a407f532f6f1e2cb1fd166767283720
+app/models/slack_message.rb 87cdc3259ac9cbf41e046ad11bccc20110b53edb
 app/jobs/create_groups_job.rb 59d6d3f2c07b11ae2d8bcc3b16c25bb88f900bbf
 app/controllers/mod_controller.rb 3977d015a3af58e205290809128fa6ce78c9e1cb
 app/controllers/application_controller.rb 0ad01a3d6db95326e06c349400e7be6472053688
