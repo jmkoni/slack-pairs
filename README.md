@@ -9,7 +9,7 @@ This application uses Ruby 3.0
 ## App Setup Instructions
 
 1. Follow instructions and [create a new slack app](https://api.slack.com/authentication/basics)
-2. Add the following Bot Token scopes to your slack app: `users:read`, `mpim:write`, `im:write`, `chat:write`, `channels:join`, `channels:manage`, `groups:write`, `groups:read`, `mpim:read`, `im:read`, and `channels:read`.
+2. Add the following Bot Token scopes to your slack app: `users:read`, `mpim:write`, `im:write`, `chat:write`, `channels:join`, `channels:manage`, `groups:write`, `groups:read`, `mpim:read`, `im:read`, and `channels:read`. *OR* copy `.slack_manifest.json`, update the app name, and save an hour of your time.
 4. Create a new app in Heroku or your hosting service of choice. Go to wherever you can add environment variables.
 5. Set `MIN_GROUP_SIZE` to 2.
 6. Get your secret key base and the oauth token for your newly created slack app. Store those as `SECRET_KEY_BASE` and `SLACK_OAUTH_TOKEN`.

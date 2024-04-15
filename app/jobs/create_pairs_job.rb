@@ -1,13 +1,13 @@
 class CreatePairsJob < ApplicationJob
-  MIN_GROUP_SIZE = 2
-
   class << self
     def perform
       Rails.logger.info("Running CreatePairsJob")
       date = Date.today
-      if date.monday? && date.cweek.odd?
-        Rails.logger.info("It's a Monday on an odd week! Generating pairs!")
-        perform!
+      if date.monday?
+        if (ENV["MONTHLY"] && date.mday <= 7) || (!ENV["MONTHLY"] && date.cweek.odd?)
+          Rails.logger.info("It's a Monday on the right week! Generating pairs!")
+          perform!
+        end
       end
     end
 
@@ -21,7 +21,7 @@ class CreatePairsJob < ApplicationJob
     def pair_members(members:)
       pairs = []
       members.shuffle!
-      pairs << members.shift(MIN_GROUP_SIZE) while members.any?
+      pairs << members.shift(ENV["MIN_GROUP_SIZE"].to_i) while members.any?
       balance_pairs(pairs)
     end
 
