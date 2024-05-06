@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.2.2"
 
 gem "rails", "~> 7.0", ">= 7.0.4"
-gem "puma", "~> 5.6"
+gem "puma"
 gem "sentry-ruby"
 gem "sentry-rails"
 gem "slack-ruby-client"

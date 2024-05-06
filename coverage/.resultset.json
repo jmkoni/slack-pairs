@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/jkonik0423/dev/slack-pairs/app/jobs/create_groups_job.rb": {
+      "/Users/jkonik0423/Dropbox/dev/slack-pairs/app/jobs/create_groups_job.rb": {
         "lines": [
           null,
           1,
@@ -97,7 +97,7 @@
           null
         ]
       },
-      "/Users/jkonik0423/dev/slack-pairs/app/jobs/application_job.rb": {
+      "/Users/jkonik0423/Dropbox/dev/slack-pairs/app/jobs/application_job.rb": {
         "lines": [
           1,
           null,
@@ -108,7 +108,7 @@
           null
         ]
       },
-      "/Users/jkonik0423/dev/slack-pairs/app/lib/slack/client.rb": {
+      "/Users/jkonik0423/Dropbox/dev/slack-pairs/app/lib/slack/client.rb": {
         "lines": [
           null,
           1,
@@ -287,7 +287,7 @@
           null
         ]
       },
-      "/Users/jkonik0423/dev/slack-pairs/app/models/slack_message.rb": {
+      "/Users/jkonik0423/Dropbox/dev/slack-pairs/app/models/slack_message.rb": {
         "lines": [
           null,
           1,
@@ -311,10 +311,12 @@
           null,
           null,
           null,
+          null,
           1,
           null,
           null,
           4,
+          null,
           null,
           null,
           null,
@@ -395,7 +397,7 @@
           null
         ]
       },
-      "/Users/jkonik0423/dev/slack-pairs/app/controllers/channels_controller.rb": {
+      "/Users/jkonik0423/Dropbox/dev/slack-pairs/app/controllers/channels_controller.rb": {
         "lines": [
           null,
           1,
@@ -426,7 +428,7 @@
           null
         ]
       },
-      "/Users/jkonik0423/dev/slack-pairs/app/controllers/application_controller.rb": {
+      "/Users/jkonik0423/Dropbox/dev/slack-pairs/app/controllers/application_controller.rb": {
         "lines": [
           1,
           1,
@@ -435,7 +437,7 @@
           null
         ]
       },
-      "/Users/jkonik0423/dev/slack-pairs/app/controllers/mod_controller.rb": {
+      "/Users/jkonik0423/Dropbox/dev/slack-pairs/app/controllers/mod_controller.rb": {
         "lines": [
           null,
           0,
@@ -469,6 +471,6 @@
         }
       }
     },
-    "timestamp": 1689603388
+    "timestamp": 1715025533
   }
 }
