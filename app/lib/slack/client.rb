@@ -138,11 +138,20 @@ If it looks like a bug, please copy and send this message to Jennifer Konikowski
             text: text
           )
         )
+        post_ephemeral(
+          channel_id: channel_id,
+          user_id: user_id,
+          channel_name: channel_name,
+          client: client,
+          message: "Your message has been sent to the mods."
+        )
       rescue => e
-        client.chat_postEphemeral(
-          channel: channel_id,
-          user: user_id,
-          text: "There was an error! Please copy and send this message to Jennifer:
+        post_ephemeral(
+          channel_id: channel_id,
+          user_id: user_id,
+          channel_name: channel_name,
+          client: client,
+          message: "There was an error! Please copy and send this message to Jennifer:
 #{e.message}"
         )
         raise
