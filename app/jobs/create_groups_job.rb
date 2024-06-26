@@ -7,8 +7,16 @@ class CreateGroupsJob < ApplicationJob
     # Creates chats if the channels exist as environment variables
     def perform
       Rails.logger.info("Running CreateGroupsJob")
+      
       create_pairs if ENV["PAIRING_CHANNEL"].present?
+          Rails.logger.info("It's the first Monday of the month! Generating pairs!")
+          create_pairs
+        end
       create_groups if ENV["GROUPS_CHANNEL"].present?
+          Rails.logger.info("It's a Monday on the right week! Generating groups!")
+          create_groups
+        end
+      
     end
 
     # Gets the users from the pairing channel (stored as an environment variable), groups,
