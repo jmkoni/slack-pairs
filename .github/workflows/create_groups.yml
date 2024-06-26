@@ -45,5 +45,4 @@ jobs:
       env:
         GROUPS_CHANNEL: ${{ secrets.GROUPS_CHANNEL }}
         PAIRING_CHANNEL: ${{ secrets.PAIRING_CHANNEL }}
-        SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
         SLACK_OAUTH_TOKEN: ${{ secrets.SLACK_OAUTH_TOKEN }}

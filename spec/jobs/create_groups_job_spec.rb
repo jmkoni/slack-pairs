@@ -1,28 +1,25 @@
 require "rails_helper"
 
 RSpec.describe CreateGroupsJob do
-  it "pairs people on first monday if pairing channel is set" do
+  it "pairs people if pairing channel is set" do
     ENV["PAIRING_CHANNEL"] = "ABCD"
     ENV["GROUPS_CHANNEL"] = ""
-    allow(Date).to receive(:today).and_return(Date.new(2021, 6, 7))
     allow(Slack::Client).to receive(:get_channel_users).and_return((1..21).to_a)
     expect(Slack::Client).to receive(:create_conversation).exactly(10)
     CreateGroupsJob.perform
   end
 
-  it "doesn't group people on odd mondays if it's not the first monday" do
+  it "doesn't pair people if there is only one person in channel" do
     ENV["PAIRING_CHANNEL"] = "ABCD"
     ENV["GROUPS_CHANNEL"] = ""
-    allow(Date).to receive(:today).and_return(Date.new(2021, 6, 21))
-    expect(Slack::Client).to receive(:get_channel_users).exactly(0)
+    allow(Slack::Client).to receive(:get_channel_users).and_return([1234])
     expect(Slack::Client).to receive(:create_conversation).exactly(0)
     CreateGroupsJob.perform
   end
 
-  it "groups people on first monday if groups channel is set" do
+  it "groups people if groups channel is set" do
     ENV["PAIRING_CHANNEL"] = ""
     ENV["GROUPS_CHANNEL"] = "ABCD"
-    allow(Date).to receive(:today).and_return(Date.new(2021, 6, 7))
     allow(Slack::Client).to receive(:get_channel_users).and_return((1..21).to_a)
     expect(Slack::Client).to receive(:create_conversation).exactly(6)
     CreateGroupsJob.perform

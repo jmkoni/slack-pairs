@@ -4,26 +4,18 @@ class CreateGroupsJob < ApplicationJob
   MAX_GROUP_SIZE = 4 # allows for a group of 3
 
   class << self
-    # Checks if that date is a Monday. If it's the first Monday, it creates pairs; if it's an even week, it creates groups.
+    # Creates chats if the channels exist as environment variables
     def perform
       Rails.logger.info("Running CreateGroupsJob")
-      date = Date.today
-      if date.monday? && date.mday <= 7
-        if ENV["PAIRING_CHANNEL"].present?
-          Rails.logger.info("It's the first Monday of the month! Generating pairs!")
-          create_pairs
-        end
-        if ENV["GROUPS_CHANNEL"].present?
-          Rails.logger.info("It's a Monday on the right week! Generating groups!")
-          create_groups
-        end
-      end
+      create_pairs if ENV["PAIRING_CHANNEL"].present?
+      create_groups if ENV["GROUPS_CHANNEL"].present?
     end
 
     # Gets the users from the pairing channel (stored as an environment variable), groups,
     # balances groups (so there isn't a group of 1), and starts the conversations
     def create_pairs
       members = Slack::Client.get_channel_users(channel_id: ENV["PAIRING_CHANNEL"])
+      return if members.length < MIN_GROUP_SIZE
       pairs = group_members(members: members, group_size: MIN_GROUP_SIZE)
       pairs = balance_pairs(pairs)
       start_conversations(groups: pairs, type: :pairing)
@@ -34,6 +26,7 @@ class CreateGroupsJob < ApplicationJob
     # balances groups (so there isn't a group of less than 3), and starts the conversations
     def create_groups
       members = Slack::Client.get_channel_users(channel_id: ENV["GROUPS_CHANNEL"])
+      return if members.length < MIN_GROUP_SIZE
       groups = group_members(members: members, group_size: MAX_GROUP_SIZE)
       groups = balance_groups(groups)
       start_conversations(groups: groups, type: :groups)
