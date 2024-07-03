@@ -76,7 +76,7 @@ module SlackMessage
         block_id: "group_introduction",
         text: {
           type: "mrkdwn",
-          text: ":wave: Hi #{group_usernames}! You've both been grouped up for a coffee chat from <##{ENV["GROUPS_CHANNEL"]}>! Find a time to meet and have fun!"
+          text: ":wave: Hi #{group_usernames}! You've been grouped up for a coffee chat from <##{ENV["GROUPS_CHANNEL"]}>! Find a time to meet and have fun!"
         }
       }
     ]

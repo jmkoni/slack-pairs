@@ -27,7 +27,7 @@ RSpec.describe SlackMessage do
         block_id: "group_introduction",
         text: {
           type: "mrkdwn",
-          text: ":wave: Hi <@123>, <@456>, and <@789>! You've both been grouped up for a coffee chat from <#C123>! Find a time to meet and have fun!"
+          text: ":wave: Hi <@123>, <@456>, and <@789>! You've been grouped up for a coffee chat from <#C123>! Find a time to meet and have fun!"
         }
       }
     ]

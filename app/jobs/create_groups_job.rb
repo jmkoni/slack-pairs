@@ -7,8 +7,17 @@ class CreateGroupsJob < ApplicationJob
     # Creates chats if the channels exist as environment variables
     def perform
       Rails.logger.info("Running CreateGroupsJob")
-      create_pairs if ENV["PAIRING_CHANNEL"].present?
-      create_groups if ENV["GROUPS_CHANNEL"].present?
+      date = Date.today
+      if (date.monday? && date.mday <= 7) || Rails.env.test?
+        if ENV["PAIRING_CHANNEL"].present?
+          Rails.logger.info("It's the first Monday of the month! Generating pairs!")
+          create_pairs
+        end
+        if ENV["GROUPS_CHANNEL"].present?
+          Rails.logger.info("It's a Monday on the right week! Generating groups!")
+          create_groups
+        end
+      end
     end
 
     # Gets the users from the pairing channel (stored as an environment variable), groups,
@@ -39,6 +48,9 @@ class CreateGroupsJob < ApplicationJob
     # @param group_size [Integer] in this context, maximum size of the group. Currently 2 or 4.
     # @return [Array of Array of Strings] groups of channel members, ex: [["U1234", "U2345"], ["U3456"]]
     def group_members(members:, group_size:)
+      # If we don't have a lot of people, we can't have groups of 4
+      group_size = (members.length / 2.0).ceil if members.length < group_size * 2
+
       groups = []
       members.shuffle!
       groups << members.shift(group_size) while members.any?
@@ -64,11 +76,17 @@ class CreateGroupsJob < ApplicationJob
     def balance_groups(groups)
       return groups if groups.length < 2
 
-      i = -2
-      while groups.last.length < (MAX_GROUP_SIZE - 1)
-        groups.last << groups[i].pop
-        i -= 1
+      # find the group with the most members
+      biggest_group = groups.max_by(&:length)
+      # find the group with the least members
+      smallest_group = groups.min_by(&:length)
+
+      if biggest_group.length - smallest_group.length > 1
+        # move a member from the biggest group to the smallest group
+        smallest_group << biggest_group.pop
+        balance_groups(groups)
       end
+
       groups
     end
 
