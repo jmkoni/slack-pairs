@@ -41,6 +41,6 @@ RSpec.describe CreateGroupsJob do
   it "balances groups" do
     groups = [[1, 2, 3, 4], [5, 6, 7, 8], [9]]
     groups = CreateGroupsJob.balance_groups(groups)
-    expect(groups.last).to eq([9, 8, 4])
+    expect(groups.last.sort).to eq([9, 8, 4].sort)
   end
 end
