@@ -8,15 +8,15 @@ class CreateGroupsJob < ApplicationJob
     def perform
       Rails.logger.info("Running CreateGroupsJob")
       
-      if ENV["PAIRING_CHANNEL"].present?
-        Rails.logger.info("It's the first Monday of the month! Generating pairs!")
-        create_pairs
-      end
+        if ENV["PAIRING_CHANNEL"].present?
+          Rails.logger.info("It's the first Monday of the month! Generating pairs!")
+          create_pairs
+        end
+        if ENV["GROUPS_CHANNEL"].present?
+          Rails.logger.info("It's a Monday on the right week! Generating groups!")
+          create_groups
+        end
       
-      if ENV["GROUPS_CHANNEL"].present?
-        Rails.logger.info("It's a Monday on the right week! Generating groups!")
-        create_groups
-      end
     end
 
     # Gets the users from the pairing channel (stored as an environment variable), groups,
