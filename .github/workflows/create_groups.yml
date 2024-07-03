@@ -8,8 +8,8 @@
 name: create_groups
 
 on:
-  # schedule:
-  #   - cron: '0 13 * * 1'
+  schedule:
+    - cron: "0 13 * * 1"
     #        | | | | |
     #        | | | | └── every Monday
     #        | | | └──── every month
@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
     inputs:
       uselessInput:
-        description: 'Github, Why is this required?'
+        description: "Github, Why is this required?"
         type: boolean
         required: false
 
@@ -28,21 +28,21 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['3.3.1']
+        ruby-version: ["3.3.1"]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby
-    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
-    # change this to (see https://github.com/ruby/setup-ruby#versioning):
-    # uses: ruby/setup-ruby@v1
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby-version }}
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: run create groups
-      run: bundle exec rake create_groups
-      env:
-        GROUPS_CHANNEL: ${{ secrets.GROUPS_CHANNEL }}
-        PAIRING_CHANNEL: ${{ secrets.PAIRING_CHANNEL }}
-        SLACK_OAUTH_TOKEN: ${{ secrets.SLACK_OAUTH_TOKEN }}
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
+        # change this to (see https://github.com/ruby/setup-ruby#versioning):
+        # uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - name: run create groups
+        run: bundle exec rake create_groups
+        env:
+          GROUPS_CHANNEL: ${{ secrets.GROUPS_CHANNEL }}
+          PAIRING_CHANNEL: ${{ secrets.PAIRING_CHANNEL }}
+          SLACK_OAUTH_TOKEN: ${{ secrets.SLACK_OAUTH_TOKEN }}
