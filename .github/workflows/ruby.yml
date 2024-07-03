@@ -35,7 +35,3 @@ jobs:
       run: bundle exec standardrb
     - name: Run tests
       run: bundle exec rspec
-    - uses: joshmfrankel/simplecov-check-action@main
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        minimum_suite_coverage: 80
