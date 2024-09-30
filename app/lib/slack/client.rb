@@ -129,6 +129,14 @@ If it looks like a bug, please copy and send this message to Jennifer Konikowski
     def self.send_mod_message(user_id:, channel_id:, channel_name:, text:, client: nil)
       client ||= default_client
       begin
+        if text == "list"
+          return list_mods(
+            user_id: user_id,
+            channel_id: channel_id,
+            channel_name: channel_name,
+            client: client
+          )
+        end
         client.chat_postMessage(
           channel: ENV["MOD_CHANNEL"],
           blocks: SlackMessage.mod_message(
@@ -143,7 +151,7 @@ If it looks like a bug, please copy and send this message to Jennifer Konikowski
           user_id: user_id,
           channel_name: channel_name,
           client: client,
-          message: "Your message has been sent to the mods."
+          message: "Your message has been sent to the mods. Want to see the current mods? Type `/mods list`."
         )
       rescue => e
         post_ephemeral(
@@ -156,6 +164,23 @@ If it looks like a bug, please copy and send this message to Jennifer Konikowski
         )
         raise
       end
+    end
+
+    def self.list_mods(user_id:, channel_id:, channel_name:, client: nil)
+      post_ephemeral(
+        channel_id: channel_id,
+        user_id: user_id,
+        channel_name: channel_name,
+        client: client,
+        message: "The current mods are: #{current_mods(client: client).join(", ")}"
+      )
+    end
+
+    def self.current_mods(client: nil)
+      client ||= default_client
+      mods = client.conversations_members(ENV["MOD_CHANNEL"])
+      mods.delete("U01URMWE2UB") # remove the bot
+      mods.map { |u| client.users_info(user: u)["user"]["real_name"] }
     end
 
     private_class_method
