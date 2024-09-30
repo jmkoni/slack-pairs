@@ -178,7 +178,7 @@ If it looks like a bug, please copy and send this message to Jennifer Konikowski
 
     def self.current_mods(client: nil)
       client ||= default_client
-      mods = client.conversations_members(ENV["MOD_CHANNEL"])
+      mods = client.conversations_members(channel: ENV["MOD_CHANNEL"])
       mods.delete("U01URMWE2UB") # remove the bot
       mods.map { |u| client.users_info(user: u)["user"]["real_name"] }
     end
