@@ -34,7 +34,7 @@ RSpec.describe Slack::Client do
       ENV["MOD_CHANNEL"] = "678"
       message = SlackMessage.mod_message(user_id: "123", channel_id: "345", channel_name: "test", text: "something is awry")
       expect(client).to receive(:chat_postMessage).with(channel: "678", blocks: message)
-      expect(client).to receive(:chat_postEphemeral).with(channel: "345", text: "Your message has been sent to the mods.", user: "123")
+      expect(client).to receive(:chat_postEphemeral).with(channel: "345", text: "Your message has been sent to the mods. Want to see the current mods? Type `/mods list`.", user: "123")
       Slack::Client.send_mod_message(user_id: "123", channel_id: "345", channel_name: "test", text: "something is awry", client: client)
     end
 
@@ -47,7 +47,7 @@ RSpec.describe Slack::Client do
       message = SlackMessage.mod_message(user_id: "123", channel_id: "345", channel_name: "directmessage", text: "something is awry")
       expect(client).to receive(:chat_postMessage).with(channel: "678", blocks: message)
       allow(client).to receive(:conversations_open).with(users: "123").and_return(conversation)
-      expect(client).to receive(:chat_postMessage).with(channel: 2, text: "Your message has been sent to the mods.")
+      expect(client).to receive(:chat_postMessage).with(channel: 2, text: "Your message has been sent to the mods. Want to see the current mods? Type `/mods list`.")
       Slack::Client.send_mod_message(user_id: "123", channel_id: "345", channel_name: "directmessage", text: "something is awry", client: client)
     end
 
