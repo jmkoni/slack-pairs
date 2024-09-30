@@ -166,6 +166,11 @@ If it looks like a bug, please copy and send this message to Jennifer Konikowski
       end
     end
 
+    # Given a user id, channel id, and channel name, it lists the current mods in the mod channel
+    # @param user_id [String] slack user id of user who sent the message
+    # @param channel_id [String] slack channel id where the user initially typed /mods
+    # @param channel_name [String] slack channel name where user initially reached out to /mods
+    # @param client [Slack::Web::Client] the slack web client, defaults to nil
     def self.list_mods(user_id:, channel_id:, channel_name:, client: nil)
       post_ephemeral(
         channel_id: channel_id,
@@ -176,9 +181,12 @@ If it looks like a bug, please copy and send this message to Jennifer Konikowski
       )
     end
 
+    # Given a client, returns the current mods in the mod channel
+    # @param client [Slack::Web::Client] the slack web client, defaults to nil
+    # @return [Array of Strings] array of mod names, ex: ["Jennifer Konikowski", "John Doe"]
     def self.current_mods(client: nil)
       client ||= default_client
-      mods = client.conversations_members(channel: ENV["MOD_CHANNEL"])
+      mods = client.conversations_members(channel: ENV["MOD_CHANNEL"])["members"]
       mods.delete("U01URMWE2UB") # remove the bot
       mods.map { |u| client.users_info(user: u)["user"]["real_name"] }
     end
