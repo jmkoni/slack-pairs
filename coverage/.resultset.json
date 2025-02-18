@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/jenniferkonikowski/Dropbox/dev/slack-pairs/app/jobs/create_groups_job.rb": {
+      "/Users/jenniferkonikowski/dev/slack-pairs/app/jobs/create_groups_job.rb": {
         "lines": [
           null,
           1,
@@ -108,7 +108,7 @@
           null
         ]
       },
-      "/Users/jenniferkonikowski/Dropbox/dev/slack-pairs/app/jobs/application_job.rb": {
+      "/Users/jenniferkonikowski/dev/slack-pairs/app/jobs/application_job.rb": {
         "lines": [
           1,
           null,
@@ -119,7 +119,7 @@
           null
         ]
       },
-      "/Users/jenniferkonikowski/Dropbox/dev/slack-pairs/app/lib/slack/client.rb": {
+      "/Users/jenniferkonikowski/dev/slack-pairs/app/lib/slack/client.rb": {
         "lines": [
           null,
           1,
@@ -253,6 +253,14 @@
           3,
           null,
           3,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          3,
           null,
           null,
           null,
@@ -281,6 +289,31 @@
           null,
           null,
           null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
           1,
           null,
           null,
@@ -307,7 +340,7 @@
           null
         ]
       },
-      "/Users/jenniferkonikowski/Dropbox/dev/slack-pairs/app/models/slack_message.rb": {
+      "/Users/jenniferkonikowski/dev/slack-pairs/app/models/slack_message.rb": {
         "lines": [
           null,
           1,
@@ -417,7 +450,7 @@
           null
         ]
       },
-      "/Users/jenniferkonikowski/Dropbox/dev/slack-pairs/app/controllers/channels_controller.rb": {
+      "/Users/jenniferkonikowski/dev/slack-pairs/app/controllers/channels_controller.rb": {
         "lines": [
           null,
           1,
@@ -448,7 +481,7 @@
           null
         ]
       },
-      "/Users/jenniferkonikowski/Dropbox/dev/slack-pairs/app/controllers/application_controller.rb": {
+      "/Users/jenniferkonikowski/dev/slack-pairs/app/controllers/application_controller.rb": {
         "lines": [
           1,
           1,
@@ -457,7 +490,7 @@
           null
         ]
       },
-      "/Users/jenniferkonikowski/Dropbox/dev/slack-pairs/app/controllers/mod_controller.rb": {
+      "/Users/jenniferkonikowski/dev/slack-pairs/app/controllers/mod_controller.rb": {
         "lines": [
           null,
           0,
@@ -487,10 +520,9 @@
           0,
           0
         ],
-        "branches": {
-        }
+        "branches": {}
       }
     },
-    "timestamp": 1720028765
+    "timestamp": 1739894310
   }
 }
