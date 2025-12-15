@@ -4,18 +4,19 @@ module SlackMessage
 
   # constant for channel ids and descriptions for identity channels
   CHANNELS = {
-    bipoc: {channel_id: "C01SYB3QMNW", description: "for anyone who identifies as BIPOC"},
-    cheersqueers: {channel_id: "C01T4KG9UUU", description: "LGBTQA+"},
-    latinidad: {channel_id: "C01SJ0F510F", description: "for Latinx APers"},
     aapi: {channel_id: "C01TNFWDA9W", description: "for Asian and Pacific Islander APers"},
-    south_asian: {channel_id: "C01SXKU357Y", description: "for South Asian APers"},
     accountabilibuddies: {channel_id: "C021TR2N5FZ", description: "for fitness/weight loss accountability"},
-    dungeons_and_dragons: {channel_id: "C0257UWRF8A", description: "if you want to play D&D"},
-    wakanda: {channel_id: "C01SYCRDFCJ", description: "for Black APers"},
+    ap_money_diaries: {channel_id: "C03JM3H264S", description: "for discussing personal finance and money management"},
+    bipoc: {channel_id: "C01SYB3QMNW", description: "for anyone who identifies as BIPOC"},
     bipolar_bpd_support: {channel_id: "C04RFB6NCG5", description: "safe space for talking about the highs and lows of mood management"},
+    cheersqueers: {channel_id: "C01T4KG9UUU", description: "LGBTQA+"},
+    dungeons_and_dragons: {channel_id: "C0257UWRF8A", description: "if you want to play D&D"},
+    latinidad: {channel_id: "C01SJ0F510F", description: "for Latinx APers"},
     nonmonogamy: {channel_id: "C03DRR18DEU", description: "safe space for discussing the ins and outs of nonmonogamy"},
     plus_size_party: {channel_id: "C01U01RDN06", description: "for plus-size APers"},
-    submissions_september: {channel_id: "C05RZM5C8UE", description: "for submissions September accountability group"}
+    south_asian: {channel_id: "C01SXKU357Y", description: "for South Asian APers"},
+    submissions_september: {channel_id: "C05RZM5C8UE", description: "for submissions September accountability group"},
+    wakanda: {channel_id: "C01SYCRDFCJ", description: "for Black APers"}
   }
 
   # Generates help message for identity channels
@@ -28,18 +29,19 @@ module SlackMessage
         block_id: "help_message",
         text: {
           type: "mrkdwn",
-          text: "*bipoc:* #{CHANNELS[:bipoc][:description]}
-*cheersqueers:* #{CHANNELS[:cheersqueers][:description]}
-*latinidad:* #{CHANNELS[:latinidad][:description]}
-*aapi:* #{CHANNELS[:aapi][:description]}
-*south_asian:* #{CHANNELS[:south_asian][:description]}
-*wakanda:* #{CHANNELS[:wakanda][:description]}
+          text: "*aapi:* #{CHANNELS[:aapi][:description]}
 *accountabilibuddies:* #{CHANNELS[:accountabilibuddies][:description]}
-*dungeons_and_dragons:* #{CHANNELS[:dungeons_and_dragons][:description]}
+*ap_money_diaries:* #{CHANNELS[:ap_money_diaries][:description]}
+*bipoc:* #{CHANNELS[:bipoc][:description]}
 *bipolar_bpd_support:* #{CHANNELS[:bipolar_bpd_support][:description]}
+*cheersqueers:* #{CHANNELS[:cheersqueers][:description]}
+*dungeons_and_dragons:* #{CHANNELS[:dungeons_and_dragons][:description]}
+*latinidad:* #{CHANNELS[:latinidad][:description]}
 *nonmonogamy:* #{CHANNELS[:nonmonogamy][:description]}
 *plus_size_party:* #{CHANNELS[:plus_size_party][:description]}
+*south_asian:* #{CHANNELS[:south_asian][:description]}
 *submissions_september:* #{CHANNELS[:submissions_september][:description]}
+*wakanda:* #{CHANNELS[:wakanda][:description]}
 "
         }
       }
